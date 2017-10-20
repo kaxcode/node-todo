@@ -1,7 +1,6 @@
 {
   "name": "todo",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "mocha lib/**/**.spec.js"
@@ -14,5 +13,15 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "mocha": "^4.0.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaxcode/node-todo.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/kaxcode/node-todo/issues"
+  },
+  "homepage": "https://github.com/kaxcode/node-todo#readme",
+  "description": "Basic node todo api with mocha testing"
 }
