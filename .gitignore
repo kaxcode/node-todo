@@ -36,3 +36,4 @@ npm-debug.log
 haters/
 variables.env
 variables.env.now
+bin
