@@ -26,16 +26,16 @@ require('./app/router/router')(app);
 var db;
 
 if(process.env.NODE_ENV === "test"){
-    db = mongoose.connect(config.test_db);
+    db = mongoose.createConnection(config.test_db);
     app.listen(config.test_port);
     console.log("App listening on port "+config.test_port);
 }else{
-    db = mongoose.connect(config.db);
+    db = mongoose.createConnection(config.db);
     app.listen(config.port);
     console.log("App listening on port "+config.port);
 }
 
-mongoose.connection.on('connected', function () {
+mongoose.createConnection('connected', function () {
     console.log('Mongoose default connection open to ' + config.db);
 });
 
