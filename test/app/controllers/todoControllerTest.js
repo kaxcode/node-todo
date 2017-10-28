@@ -1,29 +1,27 @@
-var sinon = require('sinon');
-var chai = require('chai');
-var expect = chai.expect;
+"use strict";
 
-var mongoose = require('mongoose');
+var should = require('should'),
+	sinon = require('sinon'),
+	mongoose = require('mongoose');
+
 require('sinon-mongoose');
 
-//Importing our todo model for our unit testing.
-var Todo = require('../../app/models/Todo');
+var TodoModel = require('../../../app/models/todo.model');
 
 describe('TodoController testing', function () {
-    describe('Todo Post test', function () {
-        it('Should call save only once', function () {
-            var saveStub = sinon.stub();
-            function Book(){
-                this.save = saveStub
-            }
-            var req = {
-                body: {
-                    todo: "Test todo from mock"
-                }
-            }
-            var res = {}, next = {};
-            var TodoController = require('../../../app/controllers/todoController')(Book);
-            TodoController.PostTodo(req, res, next);
-            sinon.assert.calledOnce(saveStub);
-        });
-    });
+	describe('Get all Todo test', function () {
+		it('Should call find once', function (done) {
+			var TodoMock = sinon.mock(TodoModel);
+			TodoMock
+			.expects('find')
+			.yields(null, 'TODOS');
+
+			TodoModel.find(function (err, result) {
+				TodoMock.verify();
+				TodoMock.restore();
+				should.equal('TODOS', result, "Test fails due to unexpected result")
+				done();
+			});
+		});
+	});
 });

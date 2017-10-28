@@ -4,6 +4,16 @@ var TodoCtrl = function(Todo){
 
     var TodoObj = {};
 
+    TodoObj.GetTodo = function(req, res, next){
+        Todo.find(function(err, todos){
+            if(err) {
+                res.json({status: false, error: "Something went wrong"});
+                return
+            }
+            res.json({status: true, todo: todos});
+        });
+    };
+
     TodoObj.PostTodo = function(req, res, next){
         var newTodo = new Todo(req.body);
         newTodo.save(function(err, todo){
@@ -12,16 +22,6 @@ var TodoCtrl = function(Todo){
                 return;
             }
             res.json({status: true, todo: todo});
-        });
-    };
-
-    TodoObj.GetTodo = function(req, res, next){
-        Todo.find(function(err, todos){
-            if(err) {
-                res.json({status: false, error: "Something went wrong"});
-                return
-            }
-            res.json({status: true, todo: todos});
         });
     };
 
