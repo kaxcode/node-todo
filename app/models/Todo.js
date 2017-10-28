@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+
 // Defining schema for our Todo API
 var TodoSchema = Schema({
     todo: {
@@ -14,6 +15,7 @@ var TodoSchema = Schema({
         default: Date.now
     }
 });
+
 //Exporting our model
 var TodoModel = mongoose.model('Todo', TodoSchema);
 
