@@ -8,10 +8,10 @@ var cors = require('cors');
 var app = express();
 
 var opbeat = require('opbeat').start({
-    appId: '873897962c',
-    organizationId: 'c1db293267274544b523bc8e0182443c',
-    secretToken: '3f4c16ad6b3f2453e9f5a04d94f58ce2fc081319'
-});
+    appId: '6e929ed5ae',
+    organizationId: '08b69438ac9545a8856cbecc0f2aa3c3',
+    secretToken: 'f897ec96785be30fe2952217f4be0305c35c4682'
+}); 
 
 app.use(morgan('dev'));                                         // log every request to the console
 app.use(cors());
