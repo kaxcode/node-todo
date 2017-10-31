@@ -1,2 +1,2 @@
-require('./app/models/todoModelTest.js');
-require('./app/controllers/todoControllerTest.js');
+require('./models/todoModelTest.js');
+require('./controllers/todoControllerTest.js');
