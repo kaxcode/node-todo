@@ -1,10 +1,14 @@
-var express = require('express');
-var router = express.Router();
-
 var Todo = require('../models/Todo');
 var TodoController = require('../controllers/todoController')(Todo);
 
-// Get all Todo
-router.get('/todo', TodoController.GetTodo);
+module.exports = function(app){
 
-module.exports = router;
+	app.get('/api/todos', TodoController.GetTodo);
+
+	app.post('/api/todos', TodoController.PostTodo);
+
+	app.put('/api/todos/:todo_id', TodoController.UpdateTodo);
+	
+	app.delete('/api/todos/:todo_id', TodoController.DeleteTodo);
+
+}
