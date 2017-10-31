@@ -6,7 +6,7 @@ var should = require('should'),
 
 require('sinon-mongoose');
 
-var Todo = require('../../../app/models/Todo');
+var Todo = require('../../app/models/Todo');
 
 describe('TodoController testing', function () {
   describe("Get all todos", function(){

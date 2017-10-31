@@ -1,10 +1,14 @@
 {
   "name": "node-todo",
-  "version": "0.0.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "Simple api for todo",
+  "main": "server.js",
   "scripts": {
-    "start": "node ./bin/www",
-    "test": "istanbul cover mocha && codecov"
+    "start": "./node_modules/.bin/grunt nodemon",
+    "test": "istanbul cover node_modules/mocha/bin/_mocha && codecov"
+  },
+  "bin": {
+    "codecov": "./bin/codecov"
   },
   "dependencies": {
     "body-parser": "^1.14.2",
