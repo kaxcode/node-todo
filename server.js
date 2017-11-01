@@ -1,42 +1,47 @@
-var express = require('express');
-var mongoose = require('mongoose');
-var morgan = require('morgan');
-var bodyParser = require('body-parser');
-var methodOverride = require('method-override');
-var config = require('./app/config/config');
-var cors = require('cors');
-var app = express();
+let express = require('express');
+let app = express();
+let mongoose = require('mongoose');
+let morgan = require('morgan');
+let bodyParser = require('body-parser');
+let port = 8080;
+let book = require('./app/routes/book');
+let config = require('config'); //we load the db location from the JSON files
+//db options
+let options = { 
+                server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }, 
+                replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } 
+              }; 
 
-var opbeat = require('opbeat').start({
-    appId: '6e929ed5ae',
-    organizationId: '08b69438ac9545a8856cbecc0f2aa3c3',
-    secretToken: 'f897ec96785be30fe2952217f4be0305c35c4682'
-}); 
+//db connection      
+mongoose.createConnection(config.DBHost, options);
+console.log(config.DBHost);
+mongoose.connection.on('error', (err) => {
+    console.error(`🙅 🚫 🙅 🚫 🙅 🚫 🙅 🚫 → ${err.message}`);
+  });
 
-app.use(morgan('dev'));                                         // log every request to the console
-app.use(cors());
-app.use(bodyParser.urlencoded({'extended':'true'}));            // parse application/x-www-form-urlencoded
-app.use(bodyParser.json());                                     // parse application/json
-app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
-app.use(methodOverride());
-app.use(opbeat.middleware.express());
-
-require('./app/router/router')(app);
-
-var db;
-
-if(process.env.NODE_ENV === "test"){
-    db = mongoose.createConnection(config.test_db);
-    app.listen(config.test_port);
-    console.log("App listening on port "+config.test_port);
-}else{
-    db = mongoose.createConnection(config.db);
-    app.listen(config.port);
-    console.log("App listening on port "+config.port);
+//don't show the log when it is test
+if(config.util.getEnv('NODE_ENV') !== 'test') {
+    //use morgan to log at command line
+    app.use(morgan('combined')); //'combined' outputs the Apache style LOGs
 }
 
-mongoose.createConnection('connected', function () {
-    console.log('Mongoose default connection open to ' + config.db);
-});
+//parse application/json and look for raw text                                        
+app.use(bodyParser.json());                                     
+app.use(bodyParser.urlencoded({extended: true}));               
+app.use(bodyParser.text());                                    
+app.use(bodyParser.json({ type: 'application/json'}));  
 
-module.exports = app;
+app.get("/", (req, res) => res.json({message: "Welcome to our Bookstore!"}));
+
+app.route("/book")
+    .get(book.getBooks)
+    .post(book.postBook);
+app.route("/book/:id")
+    .get(book.getBook)
+    .delete(book.deleteBook)
+    .put(book.updateBook);
+
+app.listen(port);
+console.log("Listening on port " + port);
+
+module.exports = app; // for testing
