@@ -29,7 +29,6 @@ node_modules
 # Debug log from npm
 npm-debug.log
 
-/node_modules
 .DS_Store
 *.log
 .idea
@@ -37,3 +36,4 @@ haters/
 variables.env
 variables.env.now
 bin
+config
