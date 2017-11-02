@@ -13,12 +13,11 @@ let options = {
               }; 
 
 //db connection      
-mongoose.createConnection(config.DBHost, options);
-mongoose.Promise = global.Promise; // Tell Mongoose to use ES6 promises
-console.log(config.DBHost);
-mongoose.connection.on('error', (err) => {
-    console.error(`🙅 🚫 🙅 🚫 🙅 🚫 🙅 🚫 → ${err.message}`);
-  });
+mongoose.createConnection(config.DBHost, options, function(err, db) {
+    err ? console.error(`🙅🏻‍♀️ 🚫 🙅🏻‍♀ ️🚫 🙅🏻‍♀️ 🚫 🙅🏻‍♀️ 🚫 → ${err.message}`) :
+    mongoose.Promise = global.Promise; // Tell Mongoose to use ES6 promises        
+    console.log(config.DBHost);
+});
 
 //don't show the log when it is test
 if(config.util.getEnv('NODE_ENV') !== 'test') {
