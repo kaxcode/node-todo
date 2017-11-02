@@ -14,6 +14,7 @@ let options = {
 
 //db connection      
 mongoose.createConnection(config.DBHost, options);
+mongoose.Promise = global.Promise; // Tell Mongoose to use ES6 promises
 console.log(config.DBHost);
 mongoose.connection.on('error', (err) => {
     console.error(`🙅 🚫 🙅 🚫 🙅 🚫 🙅 🚫 → ${err.message}`);
@@ -31,7 +32,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.text());                                    
 app.use(bodyParser.json({ type: 'application/json'}));  
 
-app.get("/", (req, res) => res.json({message: "Welcome to our Bookstore!"}));
+app.get("/", (req, res) => res.json({message: "Books I read in 2017!"}));
 
 app.route("/book")
     .get(book.getBooks)
