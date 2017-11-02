@@ -1,7 +1,7 @@
 {
   "name": "node-todo",
   "version": "1.0.0",
-  "description": "A bookstore API",
+  "description": "An API of all the book I read in 2017",
   "main": "server.js",
   "author": "kenia valladarez",
   "license": "MIT",
