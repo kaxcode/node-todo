@@ -31,6 +31,7 @@ if(process.env.NODE_ENV === "test"){
     console.log("App listening on port "+config.test_port);
 }else{
     db = mongoose.createConnection(config.db);
+    mongoose.Promise = global.Promise; // Tell Mongoose to use ES6 promises
     app.listen(config.port);
     console.log("App listening on port "+config.port);
 }
