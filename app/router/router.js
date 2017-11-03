@@ -5,4 +5,6 @@ module.exports = function(app){
 
 	app.get('/api/todos', TodoController.GetTodo);
 
+	app.post('/api/todos', TodoController.PostTodo);
+
 }
