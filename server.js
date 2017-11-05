@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var config = require('./app/config/config');
 var cors = require('cors');
+const routes = require('./app/router/router');
 var app = express();
 
 var opbeat = require('opbeat').start({
@@ -21,7 +22,8 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse applica
 app.use(methodOverride());
 app.use(opbeat.middleware.express());
 
-require('./app/router/router')(app);
+// After all that above middleware, we finally handle our own routes!
+app.use('/', routes);
 
 var db;
 
