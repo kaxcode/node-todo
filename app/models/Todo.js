@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 var Schema = mongoose.Schema;
 
 // Defining schema for our Todo API
@@ -17,6 +18,4 @@ var TodoSchema = Schema({
 });
 
 //Exporting our model
-var TodoModel = mongoose.model('Todo', TodoSchema);
-
-module.exports = TodoModel;
+module.exports = mongoose.model('Todo', TodoSchema);
