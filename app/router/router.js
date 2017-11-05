@@ -1,10 +1,8 @@
-var Todo = require('../models/Todo');
-var TodoController = require('../controllers/todoController')(Todo);
+const express = require('express');
+const router = express.Router();
 
-module.exports = function(app){
+router.post('/todos', function(req, res){
+	res.send({type:'POST'})
+});
 
-	app.get('/api/todos', TodoController.GetTodo);
-
-	app.post('/api/todos', TodoController.PostTodo);
-
-}
+module.exports = router;
