@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
-const Todo = mongoose.model('Todo');
+const Todo = require('../models/Todo')
 
 exports.addTodo = (req, res) => {
     const todo = new Todo(req.body);
     newTodo.save(function(err, todo){
         if(err){
-            res.json({status: false, error: err.message});
-            return;
+                res.send(err);
         }
         res.json({message: "API successfully added!", todo});
     });
