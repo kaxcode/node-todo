@@ -1,10 +1,8 @@
-'use strict';
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-var Schema = mongoose.Schema;
 
 // Defining schema for our Todo API
-var TodoSchema = new Schema({
+var todoSchema = new mongoose.Schema({
     todo: {
         type: String
     },
@@ -19,4 +17,4 @@ var TodoSchema = new Schema({
 });
 
 //Exporting our model
-module.exports = mongoose.model('Todo', TodoSchema);
+module.exports = mongoose.model('Todo', todoSchema);
