@@ -1,6 +1,5 @@
-'use strict';
 const mongoose = require('mongoose');
-const Todo = require('../models/Todo');
+const Todo = mongoose.model('Todo');
 
 exports.getTodo = (req, res) => {
     let query = Todo.find({});
@@ -10,13 +9,9 @@ exports.getTodo = (req, res) => {
     });
 }
 
-
 exports.addTodo = (req, res) => {
     const todo = new Todo(req.body);
     todo.save(function(err, todo){
-        if(err){
-                res.send(err);
-        }
-        res.json({message: "API successfully added!", todo});
-    });
+        return err ? res.send(err) : res.json({message: "Todo successfully added!", todo});
+    });
 }
