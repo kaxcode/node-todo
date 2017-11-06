@@ -1,9 +1,10 @@
+'use strict';
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 var Schema = mongoose.Schema;
 
 // Defining schema for our Todo API
-var TodoSchema = Schema({
+var TodoSchema = new Schema({
     todo: {
         type: String
     },
