@@ -8,13 +8,28 @@ if (major < 7 || (major === 7 && minor <= 5)) {
   process.exit();
 }
 
-// Connect to our Database and handle an bad connections
-mongoose.createConnection(config.db);
-mongoose.Promise = global.Promise; // Tell Mongoose to use ES6 promises
-mongoose.connection.on('error', (err) => {
-  console.error(`🙅 🚫 🙅 🚫 🙅 🚫 🙅 🚫 → ${err.message}`);
+// Connect to Database
+mongoose.connect(config.db, {
+  useMongoClient: true
 });
-console.log('Connected to db '+ config.db );
+
+// Tell Mongoose to use ES6 promises
+mongoose.Promise = global.Promise;
+
+// Connection is successful
+mongoose.connection.on('connected', function () {
+  console.log('Mongoose connected');
+});
+
+// Connection error
+mongoose.connection.on('error', function (err) {
+console.log(`Mongoose connection error 🙅🏻‍♀️ 🚫 🙅🏻‍♀ 🚫 🙅🏻‍♀️ 🚫 🙅🏻‍♀️→ ${err.message}`);
+});
+
+//Disconnected from DB
+mongoose.connection.on('disconnected', function () {
+console.log('Mongoose disconnected');
+});
 
 //import all of your models
 require('./app/models/Todo');
