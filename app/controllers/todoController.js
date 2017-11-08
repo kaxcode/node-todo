@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 const Todo = mongoose.model('Todo');
 
 exports.getTodos = (req, res) => {
-    let query = Todo.find({});
-    query.exec((err, todos) => {
+    Todo.find((err, todos) => {
         if(err) res.send(err);
         res.json(todos);
     });
