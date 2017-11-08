@@ -6,7 +6,7 @@
   "author": "kenia valladarez",
   "license": "MIT",
   "scripts": {
-    "start": "SET NODE_ENV=dev && ./node_modules/.bin/grunt nodemon",
+    "start": "./node_modules/.bin/grunt nodemon",
     "test": "istanbul cover node_modules/mocha/bin/_mocha && codecov"
   },
   "bin": {
@@ -15,7 +15,7 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "codecov": "^3.0.0",
-    "config": "^1.27.0",
+    "config": "^1.28.0",
     "cors": "^2.8.4",
     "express": "^4.16.2",
     "method-override": "^2.3.10",
