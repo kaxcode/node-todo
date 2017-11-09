@@ -14,18 +14,15 @@ let should = chai.should();
 chai.use(chaiHttp);
 //Our parent block
 describe('todos', () => {
-    beforeEach((done) => { //Before each test we empty the database
-        todo.remove({}, (err) => { 
-           done();         
-        });     
-    });
-
     describe('/GET todos testing', () => {
         it('it should GET all the todos', (done) => {
             chai.request(server)
             .get('/api/todos')
             .end(function (err, res) {
-                res.should.have.status(200);
+                if (err) {
+                    res.send.equal(err)
+                };
+                res.should.have.status(200); 
                 done();
             });
         });
@@ -48,5 +45,10 @@ describe('todos', () => {
                 done();
             });
         });
+    });
+
+    after(function(){
+        mongoose.connection.close();
+        server.close();
     });
 });
