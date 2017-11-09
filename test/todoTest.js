@@ -26,6 +26,25 @@ describe('todos', () => {
             .get('/api/todos')
             .end((err, res) => {
                 res.should.have.status(200);
+            })
+            .then(() => done());
+        });
+    });
+
+    describe('Test error in /GET todos', () => {
+        it("should return error", (done) => {
+            //Arrange
+            const TodoMock = sinon.mock(todo);
+            const expectedResult = {status: false, error: "Something went wrong"};
+
+            TodoMock
+            .expects('find')
+            .yields(expectedResult, null);
+
+            todo.find(function (err, result) {
+                TodoMock.verify();
+                TodoMock.restore();
+                should.equal(expectedResult, err, "Something went wrong")
                 done();
             });
         });
