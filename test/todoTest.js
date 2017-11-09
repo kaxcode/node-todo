@@ -22,12 +22,14 @@ describe('todos', () => {
 
     describe('/GET todos testing', () => {
         it('it should GET all the todos', (done) => {
+            this.timeout(500);
+            setTimeout(done, 300);
             chai.request(server)
             .get('/api/todos')
             .end((err, res) => {
                 res.should.have.status(200);
-            })
-            .then(() => done());
+                done();
+            });
         });
     });
 
