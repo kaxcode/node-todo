@@ -37,3 +37,9 @@ variables.env
 variables.env.now
 bin
 config
+
+# package directories
+jspm_packages
+
+# Serverless directories
+.serverless
